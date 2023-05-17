@@ -14,7 +14,7 @@ import prismadb from '@/libs/prismadb';
         if (req.method === 'POST') {
 
             const { currentUser } = await serverAuth(req, res);
-            const {  nom, prenom, email, taille, age, objectif} = req.body;
+            const {  nom, prenom, email, taille, age, objectif } = req.body;
 
 
 
@@ -34,7 +34,7 @@ import prismadb from '@/libs/prismadb';
         }
 
         if (req.method === "GET") {
-            const {userId } = req.query 
+            const { userId } = req.query 
 
             let customers;
 

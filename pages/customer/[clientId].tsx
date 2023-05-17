@@ -1,10 +1,11 @@
 import Input from '@/components/Input';
+import LineCharts from '@/components/charts/LineCharts';
 import Loader from '@/components/loader/Loader';
 import NavBar from '@/components/navBar/NavBar';
 import useCustomer from '@/hooks/useCustomer';
 import axios from 'axios';
 import { useRouter } from 'next/router'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 
 
@@ -14,7 +15,7 @@ const Customer = () => {
     const router = useRouter();
     const { clientId } = router.query
 
-    const { data: fetchedCustomer, isLoading } = useCustomer(clientId as string)
+    const { data: fetchedCustomer, isLoading, mutate: mutateCustomer } = useCustomer(clientId as string)
 
     const onSubmit = useCallback(async () => {
         try {
@@ -22,11 +23,13 @@ const Customer = () => {
 
             await axios.post(url, { bras })
             setBras('')
+            mutateCustomer()
         } catch (error) {
             console.log('Erreur ici', clientId)
 
         }
-    }, [bras, clientId])
+    }, [bras, clientId, mutateCustomer])
+
 
     const mensuration = fetchedCustomer?.mensurations
     console.log(mensuration)
@@ -43,6 +46,8 @@ const Customer = () => {
                     value={bras}
                     onChange={(e: any) => setBras(e.target.value)} />
                 <button onClick={onSubmit}>Envoyer</button>
+
+                <LineCharts key={mensuration} mensuration={mensuration} />
 
                 {/* {mensuration?.map((i: any) => (
                     <span key={i.id}>{i.bras}</span>

@@ -50,7 +50,6 @@ const FormCustomer: React.FC<FormCustomerProps> = ({ modalVisible }) => {
 
     }, [nom, prenom, email, taille, age, objectif, mutateCustomer, modalVisible])
 
-    console.log(age)
     return (
         <div>
             {isLoading && <span> <Loader /> </span>}
