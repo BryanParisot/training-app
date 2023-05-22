@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { ChangeEventHandler } from 'react'
 
 interface InputProps {
     id: string;
-    onChange: any;
+    onChange: ChangeEventHandler<HTMLInputElement>;
     value: string;
     label: string;
-    type?: string;
+    type?: 'text' | 'password' | 'email' | 'number';
     name: string;
 
 }
